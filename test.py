@@ -29,7 +29,7 @@ volume_graphic_mute = Image.open('gfx/vdt-mute.jpg')
 
 # Setup channel graphic dict
 channel_graphic = {}
-keys = range(10)
+keys = range(12)
 for i in keys:
     channel_graphic[i] = Image.open('gfx/c-' + str(i) + '.jpg')
 

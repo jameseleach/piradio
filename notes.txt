@@ -1,1 +1,16 @@
 This is notes.txt
+
+Channels:
+mv channel-5nmd.jpg c-1.jpg
+mv channel-beat-blender.jpg c-2.jpg
+mv channel-deep-space-one.jpg c-3.jpg
+mv channel-def-con-radio.jpg c-4.jpg
+mv channel-drone-zone.jpg c-5.jpg
+mv channel-fluid.jpg c-6.jpg
+mv channel-groove-classic.jpg c-7.jpg
+mv channel-groove-salad.jpg c-8.jpg
+mv channel-sonic-universe.jpg c-9.jpg
+mv channel-space-station.jpg c-10.jpg
+mv channel-synphaera.jpg c-11.jpg
+mv channel-the-trip.jpg c-12.jpg
+

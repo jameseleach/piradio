@@ -80,9 +80,9 @@ button_vol_up.when_activated = vol_rotate
 def ch_rotate():
     global current_channel
     if not button_ch_dn.is_pressed:
-        current_channel = clamp(current_channel + 1, 0, len(channels)-1)
+        current_channel = clamp(current_channel + 1, 1, len(channels)-1)
     else:
-        current_channel = clamp(current_channel - 1, 0, len(channels)-1)
+        current_channel = clamp(current_channel - 1, 1, len(channels)-1)
     print(f"Current channel: {current_channel}")
     device.display(channels[current_channel]['Graphic'])
 

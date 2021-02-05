@@ -49,11 +49,11 @@ def mute():
 def vol_rotate():
     global current_volume
     if not button_vol_dn.is_pressed:
-        current_volume = clamp(current_volume + 1, 0, 20)
+        current_volume = clamp(current_volume + 1, 0, len(volume_graphic)-1)
         print(f"Current volume: {current_volume}")
         device.display(volume_graphic[current_volume])
     else:
-        current_volume = clamp(current_volume - 1, 0, 20)
+        current_volume = clamp(current_volume - 1, 0, len(volume_graphic))
         print(f"Current volume: {current_volume}")
         device.display(volume_graphic[current_volume])
 
@@ -68,11 +68,11 @@ button_vol_up.when_activated = vol_rotate
 def ch_rotate():
     global current_channel
     if not button_ch_dn.is_pressed:
-        current_channel = clamp(current_channel + 1, 0, 20)
+        current_channel = clamp(current_channel + 1, 0, len(channel_graphic)-1)
         print(f"Current channel: {current_channel}")
         device.display(channel_graphic[current_channel])
     else:
-        current_channel = clamp(current_channel - 1, 0, 20)
+        current_channel = clamp(current_channel - 1, 0, len(channel_graphic)-1)
         print(f"Current channel: {current_channel}")
         device.display(channel_graphic[current_channel])
 

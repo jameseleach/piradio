@@ -38,7 +38,7 @@ with open('channels.csv', newline='') as csvfile:
     for row in reader:
         i = reader.line_num -1
         channels[i] = {'Name': row['Name'], 'Description': row['Description'], 'StreamURL': row['StreamURL'], 'Graphic': Image.open('gfx/' + row['Graphic'])}
-        print(row['Channel'], row['Name'],row['Description'], row['StreamURL'])
+        print(i, row['Name'],row['Description'], row['StreamURL'])
 
 # Setup volume buttons
 def mute():
@@ -65,8 +65,10 @@ def vol_rotate():
 button_vol_select = Button(4, pull_up=True)
 button_vol_select.when_pressed = mute
 
-button_vol_up = Button(5, pull_up=True, bounce_time=0.1)
-button_vol_dn = Button(6, pull_up=True, bounce_time=0.1)
+#button_vol_up = Button(5, pull_up=True, bounce_time=0.1)
+button_vol_up = Button(5, pull_up=True)
+#button_vol_dn = Button(6, pull_up=True, bounce_time=0.1)
+button_vol_dn = Button(6, pull_up=True)
 button_vol_up.when_activated = vol_rotate
 
 # Setup channel buttons
@@ -82,8 +84,10 @@ def ch_rotate():
 button_ch_select = Button(22, pull_up=True)
 button_ch_select.when_pressed = mute
 
-button_ch_up = Button(23, pull_up=True, bounce_time=0.1)
-button_ch_dn = Button(24, pull_up=True, bounce_time=0.1)
+#button_ch_up = Button(23, pull_up=True, bounce_time=0.1)
+button_ch_up = Button(23, pull_up=True)
+#button_ch_dn = Button(24, pull_up=True, bounce_time=0.1)
+button_ch_dn = Button(24, pull_up=True)
 button_ch_up.when_activated = ch_rotate
 
 pause()

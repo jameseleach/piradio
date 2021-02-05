@@ -1,4 +1,3 @@
-# This is temp.py
 import time
 from signal import pause
 from gpiozero import Button
@@ -65,9 +64,7 @@ def vol_rotate():
 button_vol_select = Button(4, pull_up=True)
 button_vol_select.when_pressed = mute
 
-#button_vol_up = Button(5, pull_up=True, bounce_time=0.1)
 button_vol_up = Button(5, pull_up=True)
-#button_vol_dn = Button(6, pull_up=True, bounce_time=0.1)
 button_vol_dn = Button(6, pull_up=True)
 button_vol_up.when_activated = vol_rotate
 
@@ -78,15 +75,13 @@ def ch_rotate():
         current_channel = clamp(current_channel + 1, 1, len(channels)-1)
     else:
         current_channel = clamp(current_channel - 1, 1, len(channels)-1)
-    print(f"Current channel: {current_channel}")
+    print(f"Switching to {channels[current_channel]['Name']}")
     device.display(channels[current_channel]['Graphic'])
 
 button_ch_select = Button(22, pull_up=True)
 button_ch_select.when_pressed = mute
 
-#button_ch_up = Button(23, pull_up=True, bounce_time=0.1)
 button_ch_up = Button(23, pull_up=True)
-#button_ch_dn = Button(24, pull_up=True, bounce_time=0.1)
 button_ch_dn = Button(24, pull_up=True)
 button_ch_up.when_activated = ch_rotate
 

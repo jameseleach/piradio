@@ -50,22 +50,23 @@ def mute():
     global mute_status
     if mute_status == True:
         device.display(volume_graphic[current_volume])
+        os.system("mpc volume " + str(current_volume * 5) )
         mute_status = False
     else:
         device.display(volume_graphic_mute)
         mute_status = True
+        os.system("mpc volume 0")
     print(f"Mute status: {mute_status}")
 
 def vol_rotate():
     global current_volume
     if not button_vol_dn.is_pressed:
         current_volume = clamp(current_volume + 1, 0, len(volume_graphic)-1)
-        print(f"Current volume: {current_volume}")
-        device.display(volume_graphic[current_volume])
     else:
         current_volume = clamp(current_volume - 1, 0, len(volume_graphic))
-        print(f"Current volume: {current_volume}")
-        device.display(volume_graphic[current_volume])
+    print(f"Current volume: {current_volume}")
+    os.system("mpc volume " + str(current_volume * 5) )
+    device.display(volume_graphic[current_volume])
 
 button_vol_select = Button(4, pull_up=True)
 button_vol_select.when_pressed = mute

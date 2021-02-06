@@ -1,14 +1,14 @@
-Channel,Name,StreamURL,Graphic
-thetrip,The Trip,http://ice6.somafm.com/thetrip-128-aac,c-thetrip.jpg
-n5md,n5MD Radio,http://ice6.somafm.com/n5md-128-aac,c-n5md.jpg
-beatblender,Beat Blender,http://ice6.somafm.com/beatblender-128-aac,c-beatblender.jpg
-deepspaceone,Deep Space One,http://ice6.somafm.com/deepspaceone-128-aac,c-deepspaceone.jpg
-defcon,DEF CON Radio,http://ice6.somafm.com/defcon-128-aac,c-defcon.jpg
-dronezone,Drone Zone,http://ice6.somafm.com/dronezone-128-aac,c-dronezone.jpg
-fluid,Fluid,http://ice6.somafm.com/fluid-128-aac,c-fluid.jpg
-gsclassic,Groove Salad Classic,http://ice6.somafm.com/gsclassic-128-aac,c-gsclassic.jpg
-groovesalad,Groove Salad,http://ice6.somafm.com/groovesalad-128-aac,c-groovesalad.jpg
-sonicuniverse,Sonic Universe,http://ice6.somafm.com/sonicuniverse-128-aac,c-sonicuniverse.jpg
-spacestation,Space Station Soma,http://ice6.somafm.com/spacestation-128-aac,c-spacestation.jpg
-synphaera,Synphaera Radio,http://ice6.somafm.com/synphaera-128-aac,c-synphaera.jpg
-thistle,Thistle Radio,http://ice4.somafm.com/thistle-128-aac,c-thistle.jpg
+Channel,Name
+thetrip,The Trip
+n5md,n5MD Radio
+beatblender,Beat Blender
+deepspaceone,Deep Space One
+defcon,DEF CON Radio
+dronezone,Drone Zone
+fluid,Fluid
+gsclassic,Groove Salad Classic
+groovesalad,Groove Salad
+sonicuniverse,Sonic Universe
+spacestation,Space Station Soma
+synphaera,Synphaera Radio
+thistle,Thistle Radio

@@ -1,5 +1,10 @@
 This is notes.txt
 
+ToDo:   
+    Implement default volume
+    Timeout for volume screen - return to channel?
+    Shorter static sound - no hard stop when the sound is playing?
+
 Requirements:
     -Install mdp
     -set the i2c bus speed to 1mhz
@@ -16,9 +21,10 @@ Requirements:
             music_directory     "/home/pi/piradio/audio/music"
             playlist_directory  "/home/pi/piradio/audio/playlists"
 
-        Review this:
+        Review this to determine proper audio_output settings:
         https://www.raspberrypi.org/forums/viewtopic.php?t=150505
-        I will try this:
+        
+        This works for me on my Pi:
         audio_output {
                 type            "alsa"
                 name            "ALSA Onboard Audio"
@@ -29,7 +35,6 @@ Requirements:
                 mixer_index     "0"
         }
 
-
 Notes:
     MPD config file:  
         /etc/mpd.conf
@@ -37,6 +42,3 @@ Notes:
         sudo systemctl restart mpd
     Get version (and other info)
         mpd --version
-
-
-{0: {'Name': 'The Trip', 'StreamURL': 'http://ice1.somafm.com/thetrip-128-aac', 'Graphic': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=128x128 at 0x748826D0>}, 1: {'Name': 'n5MD Radio', 'StreamURL': 'http://ice4.somafm.com/n5md-128-aac', 'Graphic': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=128x128 at 0x74882690>}, 2: {'Name': 'Beat Blender', 'StreamURL': 'http://ice2.somafm.com/beatblender-128-aac', 'Graphic': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=128x128 at 0x74882610>}, 3: {'Name': 'Deep Space One', 'StreamURL': 'http://ice3.somafm.com/deepspaceone-128-aac', 'Graphic': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=128x128 at 0x748826B0>}, 4: {'Name': 'DEF CON Radio', 'StreamURL': 'http://ice2.somafm.com/defcon-128-aac', 'Graphic': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=128x128 at 0x748829B0>}, 5: {'Name': 'Drone Zone', 'StreamURL': 'http://ice1.somafm.com/dronezone-128-aac', 'Graphic': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=128x128 at 0x748828F0>}, 6: {'Name': 'Fluid', 'StreamURL': 'http://ice3.somafm.com/fluid-128-aac', 'Graphic': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=128x128 at 0x74882B50>}, 7: {'Name': 'Groove Salad Classic', 'StreamURL': 'http://ice3.somafm.com/gsclassic-128-aac', 'Graphic': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=128x128 at 0x74882A90>}, 8: {'Name': 'Groove Salad', 'StreamURL': 'http://ice2.somafm.com/groovesalad-128-aac', 'Graphic': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=128x128 at 0x74882850>}, 9: {'Name': 'Sonic Universe', 'StreamURL': 'http://ice4.somafm.com/sonicuniverse-128-aac', 'Graphic': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=128x128 at 0x748829D0>}, 10: {'Name': 'Space Station Soma', 'StreamURL': 'http://ice4.somafm.com/spacestation-128-aac', 'Graphic': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=128x128 at 0x74882C30>}, 11: {'Name': 'Synphaera Radio', 'StreamURL': 'http://ice1.somafm.com/synphaera-128-aac', 'Graphic': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=128x128 at 0x74882CD0>}, 12: {'Name': 'Thistle Radio', 'StreamURL': 'http://ice2.somafm.com/thistle-128-aac', 'Graphic': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=128x128 at 0x74882FD0>}}

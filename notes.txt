@@ -1,26 +1,14 @@
 This is notes.txt
 
 Requirements:
-sudo apt install mdp
+-Install mdp
+-set the i2c bus speed to 1mhz
+-modify the /etc/mdp.conf file and uncomment this line:
+    bind_to_address         "/run/mpd/socket"
 
-set the i2c bus speed to 1mhz
-
-
+Notes:
 Restart MPD:  sudo systemctl restart mpd
 
 
-
-
-http://ice6.somafm.com/thetrip-128-aac
-http://ice6.somafm.com/n5md-128-aac
-http://ice6.somafm.com/beatblender-128-aac
-http://ice6.somafm.com/deepspaceone-128-aac
-http://ice6.somafm.com/defcon-128-aac
-http://ice6.somafm.com/dronezone-128-aac
-http://ice6.somafm.com/fluid-128-aac
-http://ice6.somafm.com/gsclassic-128-aac
-http://ice6.somafm.com/groovesalad-128-aac
-http://ice6.somafm.com/sonicuniverse-128-aac
-http://ice6.somafm.com/spacestation-128-aac
-http://ice6.somafm.com/synphaera-128-aac
-http://ice4.somafm.com/thistle-128-aac
+mpc add file:///home/pi/Projects/piradio/audio/static.m4a
+mpc play

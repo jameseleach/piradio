@@ -1,5 +1,9 @@
+import os
+import csv
 import time
+import random
 from signal import pause
+
 from gpiozero import Button
 
 from luma.core.interface.serial import i2c
@@ -7,18 +11,13 @@ from luma.oled.device import ssd1327
 
 from PIL import Image, ImageFont, ImageDraw
 
-import csv
-import random
-
 # Set default volume
 current_volume = 10
 current_channel = 4
 mute_status = False
 
-
 def clamp(n, minn, maxn):
     return max(min(maxn, n), minn)
-
 
 # Initialize screen
 serial = i2c(port=1, address=0x3D)
@@ -46,7 +45,6 @@ with open('channels.csv', newline='') as csvfile:
 
 # Setup volume buttons
 
-
 def mute():
     global mute_status
     if mute_status == True:
@@ -56,7 +54,6 @@ def mute():
         device.display(volume_graphic_mute)
         mute_status = True
     print(f"Mute status: {mute_status}")
-
 
 def vol_rotate():
     global current_volume
@@ -69,7 +66,6 @@ def vol_rotate():
         print(f"Current volume: {current_volume}")
         device.display(volume_graphic[current_volume])
 
-
 button_vol_select = Button(4, pull_up=True)
 button_vol_select.when_pressed = mute
 
@@ -79,7 +75,6 @@ button_vol_up.when_activated = vol_rotate
 
 # Setup channel buttons
 
-
 def ch_rotate():
     global current_channel
     if not button_ch_dn.is_pressed:
@@ -88,7 +83,6 @@ def ch_rotate():
         current_channel = clamp(current_channel - 1, 1, len(channels)-1)
     print(f"Switching to {channels[current_channel]['Name']}")
     device.display(channels[current_channel]['Graphic'])
-
 
 button_ch_select = Button(22, pull_up=True)
 button_ch_select.when_pressed = mute

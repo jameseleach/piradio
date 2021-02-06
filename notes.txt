@@ -1,14 +1,35 @@
 This is notes.txt
 
 Requirements:
--Install mdp
--set the i2c bus speed to 1mhz
--modify the /etc/mdp.conf file and uncomment this line:
-    bind_to_address         "/run/mpd/socket"
+    -Install mdp
+    -set the i2c bus speed to 1mhz
+    -modify the /etc/mdp.conf file: 
+        uncomment this line:
+            bind_to_address         "/run/mpd/socket"
+        comment out this line:
+            bind_to_address     "localhost:
+
+        modify these two lines from:
+            music_directory     "/var/lib/mpd/music"
+            playlist_directory  "/var/lib/mpd/playlists"
+        to:
+            music_directory     "/home/pi/piradio/audio/music"
+            playlist_directory  "/home/pi/piradio/audio/playlists"
 
 Notes:
-Restart MPD:  sudo systemctl restart mpd
+    MPD config file:  
+        /etc/mpd.conf
+    Restart MPD:  
+        sudo systemctl restart mpd
+    Get version (and other info)
+        mpd --version
 
 
-mpc add file:///home/pi/Projects/piradio/audio/static.m4a
-mpc play
+
+
+    Add file:
+        mpc add file:///home/pi/Projects/piradio/audio/static.m4a
+    Play file:
+        mpc play
+    Clear queue:
+        mpc clear

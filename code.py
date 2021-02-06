@@ -61,12 +61,15 @@ def mute():
 def vol_rotate():
     global current_volume
     if not button_vol_dn.is_pressed:
-        current_volume = clamp(current_volume + 1, 0, len(volume_graphic)-1)
+        new_volume = clamp(current_volume + 1, 0, len(volume_graphic)-1)
+        current_volume = 
     else:
-        current_volume = clamp(current_volume - 1, 0, len(volume_graphic))
+        new_volume = clamp(current_volume - 1, 0, len(volume_graphic))
     print(f"Current volume: {current_volume}")
-    os.system("mpc volume " + str(current_volume * 5) )
-    device.display(volume_graphic[current_volume])
+    if not new_volume == current_volume:
+        current_volume = new_volume
+        os.system("mpc volume " + str(current_volume * 5) )
+        device.display(volume_graphic[current_volume])
 
 button_vol_select = Button(4, pull_up=True)
 button_vol_select.when_pressed = mute
@@ -91,10 +94,13 @@ def change_channel(current_channel):
 def ch_rotate():
     global current_channel
     if not button_ch_dn.is_pressed:
-        current_channel = clamp(current_channel + 1, 1, len(channels)-1)
+        new_channel = clamp(current_channel + 1, 1, len(channels)-1)
     else:
-        current_channel = clamp(current_channel - 1, 1, len(channels)-1)
-    change_channel(current_channel)
+        new_channel = clamp(current_channel - 1, 1, len(channels)-1)
+    print(f"Current channel: {channels[current_channel]['Name']}")
+    if not new_channel == current_channel:
+        current_channel = new_channel
+        change_channel(current_channel)
 
 button_ch_select = Button(22, pull_up=True)
 button_ch_select.when_pressed = mute

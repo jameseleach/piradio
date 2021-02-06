@@ -77,12 +77,12 @@ button_vol_up.when_activated = vol_rotate
 
 # Setup channel buttons
 def change_channel(current_channel):
+    device.display(c_standby)
     print(f"Switching to {channels[current_channel]['Name']}")
     os.system("mpc clear")
     os.system("mpc add static.mp3")
     os.system("mpc play")
-    device.display(c_standby)
-    time.sleep(6)
+    time.sleep(5)
     os.system("mpc clear")
     os.system("mpc add " + channels[current_channel]['StreamURL'])
     device.display(channels[current_channel]['Graphic'])

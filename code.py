@@ -118,7 +118,10 @@ button_ch_up.when_activated = ch_rotate
 # Show default volume
 # device.display(volume_graphic[current_volume])
 
-# Show default channel
+# Show and play default channel
 device.display(channels[current_channel]['Graphic'])
+os.system("mpc clear")
+os.system("mpc add " + channels[current_channel]['StreamURL'])
+os.system("mpc play")
 
 pause()

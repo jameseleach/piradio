@@ -1,7 +1,9 @@
 import os
+import re
 import csv
 import time
 import random
+import subprocess
 from signal import pause
 
 from gpiozero import Button
@@ -11,16 +13,29 @@ from luma.oled.device import ssd1327
 
 from PIL import Image, ImageFont, ImageDraw
 
-# Set default volume
-current_volume = 10
-current_channel = 4
-mute_status = False
-pause_status = False
-
-
 def clamp(n, minn, maxn):
     return max(min(maxn, n), minn)
 
+def get_mpc_status():
+    result = subprocess.getoutput("mpc")
+    if "[playing]" in result:
+        ps= False
+    elif "[paused]" in result:
+        ps = True
+    else:
+        ps = None
+    
+    cv = int((re.split(' |%', result)[1]))
+
+    return ps, cv
+
+# Set default volume
+# current_volume = 10
+current_channel = 4
+mute_status = False
+# pause_status = False
+
+pause_status, current_volume = get_mpc_status()
 
 # Initialize screen
 serial = i2c(port=1, address=0x3D)
@@ -34,7 +49,7 @@ for i in keys:
     volume_graphic[i] = Image.open('gfx/vdt-' + str(i) + '.jpg')
 
 
-# Setup channel graphics
+# Setup channels & channel graphics
 c_standby = Image.open('gfx/c-standby.jpg')
 channels = {}
 with open('channels.csv', newline='') as csvfile:
@@ -85,6 +100,7 @@ button_vol_up.when_activated = vol_rotate
 
 # Setup channel buttons
 def play_pause():
+    # use mpc toggle?
     global pause_status
     if pause_status == True:
         os.system("mpc play")

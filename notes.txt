@@ -42,3 +42,38 @@ Notes:
         sudo systemctl restart mpd
     Get version (and other info)
         mpd --version
+
+    Status format:
+        https://www.mankier.com/1/mpc
+
+
+>>> result = re.split('\n|: |   ',subprocess.getoutput("mpc"))
+>>> result
+['Groove Salad [SomaFM]', "Shiny Objects - Farewell to the Gov'nor", '[playing] #1/1  41:10/0:00 (0%)', 'volume', '50%', 'repeat', 'off', 'random', 'off', 'single', 'off', 'consume', 'off']
+>>> result[0]
+'Groove Salad [SomaFM]'
+>>> result[1]
+"Shiny Objects - Farewell to the Gov'nor"
+>>> result[2]
+'[playing] #1/1  41:10/0:00 (0%)'
+>>> result[3]
+'volume'
+>>> result[4]
+'50%'
+>>> result[5]
+'repeat'
+>>> result[6]
+'off'
+>>> result[7]
+'random'
+>>> result[8]
+'off'
+>>> result[9]
+'single'
+>>> result[10]
+'off'
+>>> result[11]
+'consume'
+>>> result[12]
+'off'
+>>> 

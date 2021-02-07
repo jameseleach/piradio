@@ -88,8 +88,10 @@ def play_pause():
     global pause_status
     if pause_status == True:
         os.system("mpc play")
+        pause_status = False
     else:
         os.system("mpc pause")
+        pause_status = True
 
 def change_channel(current_channel):
     device.display(c_standby)

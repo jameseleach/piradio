@@ -24,7 +24,8 @@ def get_mpc_status():
         ps = True
     else:
         ps = None
-    
+
+    result = subprocess.getoutput("mpc volume")
     cv = int((re.split(' |%', result)[1]))
 
     return ps, cv

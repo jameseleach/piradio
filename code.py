@@ -117,7 +117,7 @@ def ch_rotate():
 
 
 button_ch_select = Button(22, pull_up=True)
-button_ch_select.when_pressed = pause
+button_ch_select.when_pressed = play_pause
 
 button_ch_up = Button(23, pull_up=True)
 button_ch_dn = Button(24, pull_up=True)

@@ -84,7 +84,7 @@ button_vol_dn = Button(6, pull_up=True)
 button_vol_up.when_activated = vol_rotate
 
 # Setup channel buttons
-def pause():
+def play_pause():
     global pause_status
     if pause_status == True:
         os.system("mpc play")

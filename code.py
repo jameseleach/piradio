@@ -15,6 +15,7 @@ from PIL import Image, ImageFont, ImageDraw
 current_volume = 10
 current_channel = 4
 mute_status = False
+pause_status = False
 
 
 def clamp(n, minn, maxn):
@@ -83,6 +84,13 @@ button_vol_dn = Button(6, pull_up=True)
 button_vol_up.when_activated = vol_rotate
 
 # Setup channel buttons
+def pause():
+    global pause_status
+    if pause_status == True:
+        os.system("mpc play")
+    else:
+        os.system("mpc pause")
+
 def change_channel(current_channel):
     device.display(c_standby)
     print(f"Switching to {channels[current_channel]['Name']}")
@@ -109,7 +117,7 @@ def ch_rotate():
 
 
 button_ch_select = Button(22, pull_up=True)
-button_ch_select.when_pressed = mute
+button_ch_select.when_pressed = pause
 
 button_ch_up = Button(23, pull_up=True)
 button_ch_dn = Button(24, pull_up=True)

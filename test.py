@@ -157,6 +157,7 @@ def ch_rotate():
         new_stream = clamp(int(status['song']) - 1, 0, len(streams) - 1)
     if not new_stream == int(status['song']):
         client.play(new_stream)
+        update_stream_graphic()
         # change_stream(current_stream)
 
 

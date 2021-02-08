@@ -6,7 +6,13 @@ ToDo:
     Shorter static sound - no hard stop when the sound is playing?
 
 Requirements:
-    -Install mdp
+    apt upgrade & update
+
+    sudo apt install mpd mpc
+
+    Install packages:
+        sudo python3 -m pip install --upgrade luma.core luma.oled gpizero python-mpd2 Pillow
+
     -set the i2c bus speed to 1mhz
     -modify the /etc/mdp.conf file: 
         uncomment this line:
@@ -47,33 +53,30 @@ Notes:
         https://www.mankier.com/1/mpc
 
 
->>> result = re.split('\n|: |   ',subprocess.getoutput("mpc"))
->>> result
-['Groove Salad [SomaFM]', "Shiny Objects - Farewell to the Gov'nor", '[playing] #1/1  41:10/0:00 (0%)', 'volume', '50%', 'repeat', 'off', 'random', 'off', 'single', 'off', 'consume', 'off']
->>> result[0]
-'Groove Salad [SomaFM]'
->>> result[1]
-"Shiny Objects - Farewell to the Gov'nor"
->>> result[2]
-'[playing] #1/1  41:10/0:00 (0%)'
->>> result[3]
-'volume'
->>> result[4]
-'50%'
->>> result[5]
-'repeat'
->>> result[6]
-'off'
->>> result[7]
-'random'
->>> result[8]
-'off'
->>> result[9]
-'single'
->>> result[10]
-'off'
->>> result[11]
-'consume'
->>> result[12]
-'off'
->>> 
+Channel: The Trip URL: http://ice4.somafm.com/thetrip-128-aac
+Channel: n5MD Radio URL: http://ice2.somafm.com/n5md-128-aac
+Channel: Beat Blender URL: http://ice5.somafm.com/beatblender-128-aac
+Channel: Deep Space One URL: http://ice3.somafm.com/deepspaceone-128-aac
+Channel: DEF CON Radio URL: http://ice4.somafm.com/defcon-128-aac
+Channel: Drone Zone URL: http://ice5.somafm.com/dronezone-128-aac
+Channel: Fluid URL: http://ice3.somafm.com/fluid-128-aac
+Channel: Groove Salad Classic URL: http://ice4.somafm.com/gsclassic-128-aac
+Channel: Groove Salad URL: http://ice6.somafm.com/groovesalad-128-aac
+Channel: Sonic Universe URL: http://ice6.somafm.com/sonicuniverse-128-aac
+Channel: Space Station Soma URL: http://ice1.somafm.com/spacestation-128-aac
+Channel: Synphaera Radio URL: http://ice1.somafm.com/synphaera-128-aac
+Channel: Thistle Radio URL: http://ice1.somafm.com/thistle-128-aac
+
+The Trip:  Tip top tunes. [SomaFM]: The Moody Guru - Why Can't I Be An Italian (Original Mix)
+n5md Radio. Emotional Experiments in Music. [SomaFM]: Ruxpin - With Our Hands We Form Contact
+Beat Blender: A late night blend of deep-house & downtempo chill. [SomaFM]: Air Batucada - Air Batucada
+Deep Space One: Deep ambient electronic and space music. [SomaFM]: Martin Sturtzer - Farcaster
+DEF CONi Safe Mode Live Stream [SomaFM]: Suburban Dream - Safely Sane (Relapse)
+Drone Zone [SomaFM]: Brian Eno - Reflection
+Fluid: Drown in the electronic sound of instrumental hiphop, future soul and chilled trap. [SomaFM]: BKBROWN - Ghost
+Groove Salad Classic: The early days of a nicely chilled plate of ambient beats and grooves. [SomaFM]: Akotcha - Img.00.37
+Groove Salad [SomaFM]: Fila Brazillia - Blood
+Sonic Universe: Nu Jazz plus avant-garde Euro Jazz: Transcending the boundaries of jazz with experimental takes on tradition. [SomaFM]: Cosmic Village Feat. Chara - Mind Expansions
+Space Station Soma from SomaFM.com [SomaFM]: Omicron - Static State (High On Transistors)
+SYNPHAERA: SPACE | TIME | MATTER [SomaFM]: Extraworld - Starless
+Thistle Radio: An exploration of music from Celtic roots [SomaFM]: T With The Maggies - Wedding Song

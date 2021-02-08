@@ -94,9 +94,10 @@ def mute():
         mute_info['state'] = False
         update_volume_graphic()
     else:
-        client.setvol(0)
         mute_info['state'] = True
+        mute_info['volume'] = status['volume']
         device.display(volume_graphic_mute)
+        client.setvol(0)
     print(f"Mute status: {mute_info['state']}")
 
 

@@ -127,8 +127,8 @@ def update_stream_graphic():
 
 
 def play_pause():
-    status = mpd_status(client)
     client.pause()
+    status = mpd_status(client)
     if status['state'] == 'pause':
         device.display(volume_graphic_pause)
     else:

@@ -5,13 +5,10 @@ import csv
 import time
 import random
 from signal import pause
-
 from gpiozero import Button
 from mpd import MPDClient
-
 from luma.core.interface.serial import i2c
 from luma.oled.device import ssd1327
-
 from PIL import Image
 
 
@@ -48,6 +45,7 @@ status = mpd_status(client)
 default_channel = 4
 default_volume = 50
 selected_display = 'volume'
+display_timeout = 5
 mute_info = {'state': False, 'volume': status['volume']}
 
 
@@ -134,12 +132,15 @@ def update_stream_graphic():
 
 
 def play_pause():
+    status = mpd_status(client)
+    cs = status['state']
     client.pause()
     status = mpd_status(client)
     if status['state'] == 'pause':
         device.display(volume_graphic_pause)
     else:
         update_stream_graphic()
+    print(f"Status: {status['state']}")
 
 
 def change_stream(current_stream):
@@ -163,6 +164,8 @@ def ch_rotate():
     else:
         new_stream = clamp(int(status['song']) - 1, 0, len(streams) - 1)
     if not new_stream == int(status['song']):
+        print(
+            f"Switching from {streams[int(status['song'])]['Name']} to {streams[new_stream]['Name']}")
         client.play(new_stream)
         update_stream_graphic()
         # change_stream(current_stream)
@@ -171,17 +174,17 @@ def ch_rotate():
 button_ch_select.when_pressed = play_pause
 button_ch_up.when_activated = ch_rotate
 
-# Show default volume
-# device.display(volume_graphic[current_volume])
-
 # Show and play default stream
 device.display(streams[default_channel]['Graphic'])
 client.play(default_channel)
 
-# pause()
-while True:
-    if selected_display == 'volume':
-        update_volume_graphic()
-    else:
-        update_stream_graphic()
-    
+pause()
+#while True:
+#    ct = time.time()
+#    if selected_display == 'volume':
+#        update_volume_graphic()
+#        if time.time() >= ct + display_timeout:
+#            global_display = 'stream'
+#    else:
+#        update_stream_graphic()
+

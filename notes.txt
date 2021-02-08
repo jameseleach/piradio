@@ -6,15 +6,45 @@ ToDo:
     Shorter static sound - no hard stop when the sound is playing?
 
 Requirements:
-    apt upgrade & update
+    Ensure system is up to date:
+        `sudo apt update`
+        `sudo apt upgrade`
 
-    sudo apt install mpd mpc
+    Install MPD
+        `sudo apt install mpd`
 
-    Install packages:
-        sudo python3 -m pip install --upgrade luma.core luma.oled gpizero python-mpd2 Pillow
+    MPC is also useful but not required
+        `sudo apt install mpc`
 
-    -set the i2c bus speed to 1mhz
-    -modify the /etc/mdp.conf file: 
+    Install required Python packages:
+        python-mpd2
+            Tested python-mpd2 3.0.4
+            https://pypi.org/project/python-mpd2/
+
+            `sudo python3 -m pip install python-mpd2`
+        gpiozero
+            Tested with gpiozero 1.5.1
+            https://pypi.org/project/gpiozero/
+
+            `sudo apt install python3-gpiozero`
+        Pillow
+            Tested with Pillow 8.1.0
+            https://pypi.org/project/Pillow/
+
+            `python3 -m pip install --upgrade Pillow`
+        Luma.core
+            Tested with luma.core 2.2.0
+            https://pypi.org/project/luma.core/
+
+            This should be installed by luma.oled
+        Luma.oled
+            Tested with luma.oled 3.8.1
+            https://pypi.org/project/luma.oled/
+
+            `sudo python3 pip install --upgrade luma.oled`
+
+    set the i2c bus speed to 1mhz
+    modify the /etc/mdp.conf file: 
         uncomment this line:
             bind_to_address         "/run/mpd/socket"
         comment out this line:

@@ -1,11 +1,9 @@
 #this is test.py
 
 import os
-import re
 import csv
 import time
 import random
-import subprocess
 from signal import pause
 
 from gpiozero import Button
@@ -14,10 +12,12 @@ from mpd import MPDClient
 from luma.core.interface.serial import i2c
 from luma.oled.device import ssd1327
 
-from PIL import Image, ImageFont, ImageDraw
+from PIL import Image
+
 
 def clamp(n, minn, maxn):
     return max(min(maxn, n), minn)
+
 
 def myround(x, base=5):
     return base * round(x/base)
@@ -40,26 +40,28 @@ serial = i2c(port=1, address=0x3D)
 device = ssd1327(serial)
 
 # Initialize MPD interface
-client = MPDClient() 
+client = MPDClient()
 status = mpd_status(client)
 
 
 # Set / get defaults
 default_channel = 4
+default_volume = 50
+selected_display = 'volume'
 mute_info = {'state': False, 'volume': status['volume']}
 
 
 # Setup volume graphics
-volume_graphic_mute = Image.open('gfx/vdt-mute.jpg')
-volume_graphic_pause = Image.open('gfx/pause.jpg')
+# volume_graphic_mute = Image.open('gfx/vdt-mute.jpg')
+volume_graphic_pause = Image.open('gfx/image-pause.jpg')
 volume_graphic = {}
 keys = range(21)
 for i in keys:
-    volume_graphic[i] = Image.open('gfx/vdt-' + str(i) + '.jpg')
+    volume_graphic[i] = Image.open('gfx/image-volume-' + str(i) + '.jpg')
 
 
 # Setup playlist and graphics
-img_standby = Image.open('gfx/c-standby.jpg')
+img_standby = Image.open('gfx/image-standby.jpg')
 streams = {}
 client.clear()
 with open('streams.csv', newline='') as csvfile:
@@ -68,7 +70,7 @@ with open('streams.csv', newline='') as csvfile:
         streams[index] = {
             'Name': row['Name'],
             'StreamURL': 'http://ice' + str(random.randint(1, 6)) + '.somafm.com/' + row['Stream'] + '-128-aac',
-            'Graphic': Image.open('gfx/c-' + row['Stream'] + ".jpg")
+            'Graphic': Image.open('gfx/image-stream-' + row['Stream'] + ".jpg")
         }
         client.add(streams[index]['StreamURL'])
         print(
@@ -82,6 +84,8 @@ button_vol_dn = Button(6, pull_up=True)
 
 
 def update_volume_graphic():
+    global selected_display
+    global_display = 'volume'
     status = mpd_status(client)
     device.display(volume_graphic[myround(int(status['volume']))/5])
 
@@ -92,13 +96,12 @@ def mute():
     if mute_info['state'] == True:
         client.setvol(mute_info['volume'])
         mute_info['state'] = False
-        update_volume_graphic()
     else:
         mute_info['state'] = True
         mute_info['volume'] = status['volume']
-        device.display(volume_graphic_mute)
         client.setvol(0)
     print(f"Mute status: {mute_info['state']}")
+    update_volume_graphic()
 
 
 def vol_rotate():
@@ -122,7 +125,10 @@ button_ch_select = Button(22, pull_up=True)
 button_ch_up = Button(23, pull_up=True)
 button_ch_dn = Button(24, pull_up=True)
 
+
 def update_stream_graphic():
+    global selected_display
+    global_display = 'stream'
     status = mpd_status(client)
     device.display(streams[int(status['song'])]['Graphic'])
 
@@ -153,7 +159,7 @@ def change_stream(current_stream):
 def ch_rotate():
     status = mpd_status(client)
     if not button_ch_dn.is_pressed:
-        new_stream = clamp(int(status['song'])+ 1, 0, len(streams) - 1)
+        new_stream = clamp(int(status['song']) + 1, 0, len(streams) - 1)
     else:
         new_stream = clamp(int(status['song']) - 1, 0, len(streams) - 1)
     if not new_stream == int(status['song']):
@@ -172,4 +178,10 @@ button_ch_up.when_activated = ch_rotate
 device.display(streams[default_channel]['Graphic'])
 client.play(default_channel)
 
-pause()
+# pause()
+while True:
+    if selected_display == 'volume':
+        update_volume_graphic()
+    else:
+        update_stream_graphic()
+    

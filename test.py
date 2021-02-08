@@ -45,8 +45,7 @@ status = mpd_status(client)
 
 
 # Set / get defaults
-#current_volume = status['volume']
-#current_state = status['state']
+default_channel = 4
 mute_info = {'state': False, 'volume': status['volume']}
 
 
@@ -62,13 +61,14 @@ for i in keys:
 # Setup playlist and graphics
 img_standby = Image.open('gfx/c-standby.jpg')
 streams = {}
+client.clear()
 with open('streams.csv', newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     for index, row in enumerate(reader):
         streams[index] = {
             'Name': row['Name'],
-            'StreamURL': 'http://ice' + str(random.randint(1, 6)) + '.somafm.com/' + row['stream'] + '-128-aac',
-            'Graphic': Image.open('gfx/c-' + row['stream'] + ".jpg")
+            'StreamURL': 'http://ice' + str(random.randint(1, 6)) + '.somafm.com/' + row['Stream'] + '-128-aac',
+            'Graphic': Image.open('gfx/c-' + row['Stream'] + ".jpg")
         }
         client.add(streams[index]['StreamURL'])
         print(
@@ -105,10 +105,8 @@ def vol_rotate():
     cv = status['volume']
     if not button_vol_dn.is_pressed:
         client.volume(5)
-        # new_volume = clamp(current_volume + 1, 0, len(volume_graphic) - 1)
     else:
         client.volume(-5)
-        # new_volume = clamp(current_volume - 1, 0, len(volume_graphic) - 1)
     status = mpd_status(client)
     print(f"Current volume: {status['volume']}")
     if not cv == status['volume']:
@@ -125,7 +123,7 @@ button_ch_dn = Button(24, pull_up=True)
 
 def update_stream_graphic():
     status = mpd_status(client)
-    device.display(streams[int(status['song'])-1]
+    device.display(streams[int(status['song'])]['Graphic'])
 
 
 def play_pause():
@@ -133,11 +131,13 @@ def play_pause():
     client.pause()
     if status['state'] == 'pause':
         device.display(volume_graphic_pause)
-    
+    else:
+        update_stream_graphic()
 
 
 def change_stream(current_stream):
-    device.display(c_standby)
+    # unused for now
+    device.display(img_standby)
     print(f"Switching to {streams[current_stream]['Name']}")
     os.system("mpc clear")
     os.system("mpc add static.mp3")
@@ -150,15 +150,14 @@ def change_stream(current_stream):
 
 
 def ch_rotate():
-    global current_stream
+    status = mpd_status(client)
     if not button_ch_dn.is_pressed:
-        new_stream = clamp(current_stream + 1, 0, len(streams) - 1)
+        new_stream = clamp(int(status['song'])+ 1, 0, len(streams) - 1)
     else:
-        new_stream = clamp(current_stream - 1, 0, len(streams) - 1)
-    print(f"Current stream: {streams[current_stream]['Name']}")
-    if not new_stream == current_stream:
-        current_stream = new_stream
-        change_stream(current_stream)
+        new_stream = clamp(int(status['song']) - 1, 0, len(streams) - 1)
+    if not new_stream == int(status['song']):
+        client.play(new_stream)
+        # change_stream(current_stream)
 
 
 button_ch_select.when_pressed = play_pause
@@ -168,9 +167,7 @@ button_ch_up.when_activated = ch_rotate
 # device.display(volume_graphic[current_volume])
 
 # Show and play default stream
-device.display(streams[current_stream]['Graphic'])
-os.system("mpc clear")
-os.system("mpc add " + streams[current_stream]['StreamURL'])
-os.system("mpc play")
+device.display(streams[default_channel]['Graphic'])
+client.play(default_channel)
 
 pause()

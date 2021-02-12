@@ -1,5 +1,20 @@
 This is notes.txt
 
+The new way?
+
+    Pi MusicBox https://www.pimusicbox.com
+        Use this as the base.
+        Includes Mopidy, MPD, etc.
+
+    Use this?
+    PiFi Radio https://github.com/rccavalcanti/pifi-radio
+        Pros: Super clean, simple web UI.
+        Cons: No song info, no graphics for stations
+
+        Uses JSON for station list.  I can work with this.
+    
+
+
 ToDo:   
     Implement default volume
     Timeout for volume screen - return to channel?

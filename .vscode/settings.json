@@ -2,7 +2,7 @@
     "python.autoComplete.extraPaths": [
         null,
         "/Users/james/.vscode/extensions/joedevivo.vscode-circuitpython-0.1.8/stubs",
-        "/Users/james/Library/Application Support/Code/User/globalStorage/joedevivo.vscode-circuitpython/bundle/20210211/adafruit-circuitpython-bundle-py-20210211/lib"
+        "/Users/james/Library/Application Support/Code/User/globalStorage/joedevivo.vscode-circuitpython/bundle/20210212/adafruit-circuitpython-bundle-py-20210212/lib"
     ],
     "python.analysis.extraPaths": [
         null,

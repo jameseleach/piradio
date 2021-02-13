@@ -6,30 +6,67 @@ The new way?
         Use this as the base.
         Includes Mopidy, MPD, etc.
 
+        Wow... This is old :( 
+
     Use this?
     PiFi Radio https://github.com/rccavalcanti/pifi-radio
         Pros: Super clean, simple web UI.
         Cons: No song info, no graphics for stations
 
         Uses JSON for station list.  I can work with this.
-    
 
+
+Step-by-step?
+    Install Raspberry Pi OS Lite (32-bit)
+
+    Enable SSH and Configure Wi-Fi
+        https://www.raspberrypi.org/documentation/configuration/wireless/headless.md
+
+    Ensure system is up to date:
+        `sudo apt update`
+        `sudo apt upgrade`
+
+    Run `raspi-config` and:
+        system options:
+            change password
+            change hostname
+        interface options:
+            enable i2c
+        localisation options:
+            change locale
+            set timezone
+            set wlan country
+
+    Install and configure Mopidy
+        https://docs.mopidy.com/en/latest/installation/raspberrypi/#how-to-for-raspbian
+
+
+    Install Mopidy extensions:
+
+        sudo apt install mopidy-alsamixer/stable
+        sudo apt install mopidy-local/stable
+        sudo apt install mopidy-mpd/stable      # this replaces MPD
+        sudo apt install mopidy-somafm/stable
+
+    What, no PIP?
+        sudo apt install python3-pip
+
+    Install more Mopidy extensions
+
+        sudo python3 -m pip install Mopidy-Iris
+        sudo python3 -m pip install Mopidy-SomaFM
+        sudo python3 -m pip install Mopidy-Mobile
+        sudo python3 -m pip install Mopidy-MusicBox-Webclient
+
+    MPC is still useful
+        sudo apt install mpc    
 
 ToDo:   
     Implement default volume
     Timeout for volume screen - return to channel?
     Shorter static sound - no hard stop when the sound is playing?
 
-Requirements:
-    Ensure system is up to date:
-        `sudo apt update`
-        `sudo apt upgrade`
-
-    Install MPD
-        `sudo apt install mpd`
-
-    MPC is also useful but not required
-        `sudo apt install mpc`
+Requirements for this code:
 
     Install required Python packages:
         python-mpd2
@@ -58,7 +95,75 @@ Requirements:
 
             `sudo python3 pip install --upgrade luma.oled`
 
-    set the i2c bus speed to 1mhz
+    * set the i2c bus speed to 1mhz:
+        modify /boot/config.txt:
+            dtparam=i2c_arm=on
+            dtparam=i2c_arm_baudrate=1000000
+
+
+MPC Info:
+    https://www.mankier.com/1/mpc
+
+
+Mopidy Config Files:
+
+    pi@jukebox:~ $ sudo cat /usr/share/mopidy/conf.d/mopidy.conf
+    # These are default configurations modified by the mopidy Debian package.
+    #
+    # This file should not be modified. Everything can be overriden by
+    # `/etc/mopidy/mopidy.conf`.
+
+    [core]
+    cache_dir = /var/cache/mopidy
+    config_dir = /etc/mopidy
+    data_dir = /var/lib/mopidy
+
+    [logging]
+    format = %(levelname)-8s [%(threadName)s] %(name)s %(message)s
+    color = false
+
+    pi@jukebox:~ $ sudo cat /usr/share/mopidy/conf.d/mopidy-local.conf
+    [local]
+    media_dir = /var/lib/mopidy/media
+    pi@jukebox:~ $ 
+
+    pi@jukebox:~ $ sudo cat /etc/mopidy/mopidy.conf
+    # For information about configuration values that can be set in this file see:
+    #
+    #   https://docs.mopidy.com/en/latest/config/
+    #
+    # Run `sudo mopidyctl config` to see the current effective config, based on
+    # both defaults and this configuration file.
+
+    [mpd]
+    enabled = true
+    hostname = ::
+
+    [audio]
+    # mixer = software
+    # output = alsasink
+    mixer = alsamixer
+
+    [alsamixer]
+    card = 0
+    control = "Headphone"
+    min_volume = 0
+    max_volume = 100
+    volume_scale = cubic
+
+    [http]
+    enabled = true
+    hostname = ::
+    port = 6680
+    zeroconf = Mopidy HTTP server on $hostname
+    allowed_origins =
+    csrf_protection = true
+    default_app = mopidy
+    pi@jukebox:~ $ 
+
+
+OLD:
+
     modify the /etc/mdp.conf file: 
         uncomment this line:
             bind_to_address         "/run/mpd/socket"
@@ -85,43 +190,3 @@ Requirements:
                 mixer_control   "Headphone"
                 mixer_index     "0"
         }
-
-Notes:
-    MPD config file:  
-        /etc/mpd.conf
-    Restart MPD:  
-        sudo systemctl restart mpd
-    Get version (and other info)
-        mpd --version
-
-    Status format:
-        https://www.mankier.com/1/mpc
-
-
-Channel: The Trip URL: http://ice4.somafm.com/thetrip-128-aac
-Channel: n5MD Radio URL: http://ice2.somafm.com/n5md-128-aac
-Channel: Beat Blender URL: http://ice5.somafm.com/beatblender-128-aac
-Channel: Deep Space One URL: http://ice3.somafm.com/deepspaceone-128-aac
-Channel: DEF CON Radio URL: http://ice4.somafm.com/defcon-128-aac
-Channel: Drone Zone URL: http://ice5.somafm.com/dronezone-128-aac
-Channel: Fluid URL: http://ice3.somafm.com/fluid-128-aac
-Channel: Groove Salad Classic URL: http://ice4.somafm.com/gsclassic-128-aac
-Channel: Groove Salad URL: http://ice6.somafm.com/groovesalad-128-aac
-Channel: Sonic Universe URL: http://ice6.somafm.com/sonicuniverse-128-aac
-Channel: Space Station Soma URL: http://ice1.somafm.com/spacestation-128-aac
-Channel: Synphaera Radio URL: http://ice1.somafm.com/synphaera-128-aac
-Channel: Thistle Radio URL: http://ice1.somafm.com/thistle-128-aac
-
-The Trip:  Tip top tunes. [SomaFM]: The Moody Guru - Why Can't I Be An Italian (Original Mix)
-n5md Radio. Emotional Experiments in Music. [SomaFM]: Ruxpin - With Our Hands We Form Contact
-Beat Blender: A late night blend of deep-house & downtempo chill. [SomaFM]: Air Batucada - Air Batucada
-Deep Space One: Deep ambient electronic and space music. [SomaFM]: Martin Sturtzer - Farcaster
-DEF CONi Safe Mode Live Stream [SomaFM]: Suburban Dream - Safely Sane (Relapse)
-Drone Zone [SomaFM]: Brian Eno - Reflection
-Fluid: Drown in the electronic sound of instrumental hiphop, future soul and chilled trap. [SomaFM]: BKBROWN - Ghost
-Groove Salad Classic: The early days of a nicely chilled plate of ambient beats and grooves. [SomaFM]: Akotcha - Img.00.37
-Groove Salad [SomaFM]: Fila Brazillia - Blood
-Sonic Universe: Nu Jazz plus avant-garde Euro Jazz: Transcending the boundaries of jazz with experimental takes on tradition. [SomaFM]: Cosmic Village Feat. Chara - Mind Expansions
-Space Station Soma from SomaFM.com [SomaFM]: Omicron - Static State (High On Transistors)
-SYNPHAERA: SPACE | TIME | MATTER [SomaFM]: Extraworld - Starless
-Thistle Radio: An exploration of music from Celtic roots [SomaFM]: T With The Maggies - Wedding Song

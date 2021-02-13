@@ -47,7 +47,7 @@ Step-by-step?
         Iris is a good default web client:
             https://pypi.org/project/Mopidy-Iris/
 
-            `sudo python3 -m pip install Mopidy-Iris`
+            `sudo python3 -m pip install --upgrade Mopidy-Iris`
             Add to mopidy.conf:
                 [iris]
                 country = US
@@ -56,7 +56,7 @@ Step-by-step?
         Muse is a very nice client: 
             https://pypi.org/project/Mopidy-Muse/
             
-            `sudo python3 -m pip install Mopidy-Muse`
+            `sudo python3 -m pip install --upgrade Mopidy-Muse`
             Add to mopidy.conf:
                 [muse]
                 enabled = true
@@ -71,13 +71,17 @@ Step-by-step?
         Default playlist.  
             https://pypi.org/project/Mopidy-DefaultPlaylist/
 
-            `python3 -m pip install Mopidy-DefaultPlaylist`
+            `sudo python3 -m pip install --upgrade Mopidy-DefaultPlaylist`
             Add to mopidy.conf:
                 [defaultplaylist]
                 enabled = true
                 defaultplaylist_name = Top Hits
                 autoplay = true
                 shuffle = true
+
+    Install packages required for this code:
+        `sudo python3 -m pip install --upgrade Pillow python-mpd2 luma.oled`
+
 
     New resources?
         https://pypi.org/project/mopidy-pidi/
@@ -98,7 +102,6 @@ Requirements for this code:
             Tested python-mpd2 3.0.4
             https://pypi.org/project/python-mpd2/
 
-            `sudo python3 -m pip install python-mpd2`
         gpiozero
             Tested with gpiozero 1.5.1
             https://pypi.org/project/gpiozero/
@@ -108,7 +111,6 @@ Requirements for this code:
             Tested with Pillow 8.1.0
             https://pypi.org/project/Pillow/
 
-            `python3 -m pip install --upgrade Pillow`
         Luma.core
             Tested with luma.core 2.2.0
             https://pypi.org/project/luma.core/
@@ -118,7 +120,6 @@ Requirements for this code:
             Tested with luma.oled 3.8.1
             https://pypi.org/project/luma.oled/
 
-            `sudo python3 pip install --upgrade luma.oled`
 
     * set the i2c bus speed to 1mhz:
         modify /boot/config.txt:

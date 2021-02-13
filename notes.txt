@@ -1,21 +1,4 @@
 This is notes.txt
-
-The new way?
-
-    Pi MusicBox https://www.pimusicbox.com
-        Use this as the base.
-        Includes Mopidy, MPD, etc.
-
-        Wow... This is old :( 
-
-    Use this?
-    PiFi Radio https://github.com/rccavalcanti/pifi-radio
-        Pros: Super clean, simple web UI.
-        Cons: No song info, no graphics for stations
-
-        Uses JSON for station list.  I can work with this.
-
-
 Step-by-step?
     Install Raspberry Pi OS Lite (32-bit)
 
@@ -43,28 +26,70 @@ Step-by-step?
 
     Install Mopidy extensions:
 
+        Search for avaialble packages:
+        `apt search mopidy`
+        Install via `apt` if avaialble.  If not, check to see if the pacakage is avaialble via `pip`.
+
         sudo apt install mopidy-alsamixer/stable
-        sudo apt install mopidy-local/stable
-        sudo apt install mopidy-mpd/stable      # this replaces MPD
         sudo apt install mopidy-somafm/stable
+        sudo apt install mopidy-mpd/stable
+        sudo apt install mopidy-local/stable
+
+    Install more Mopidy extensions via pip if necessary.  No need to install something via `pip` if it was available via `apt`
+
+        Search for packages:
+        `python3 -m pip search mopidy` is broken and likely to remain broken.   
+        Search via the web: https://pypi.org/search/?q=mopidy
 
     What, no PIP?
         sudo apt install python3-pip
 
-    Install more Mopidy extensions
+        Iris is a good default web client:
+            https://pypi.org/project/Mopidy-Iris/
 
-        sudo python3 -m pip install Mopidy-Iris
-        sudo python3 -m pip install Mopidy-SomaFM
-        sudo python3 -m pip install Mopidy-Mobile
-        sudo python3 -m pip install Mopidy-MusicBox-Webclient
+            `sudo python3 -m pip install Mopidy-Iris`
+            Add to mopidy.conf:
+                [iris]
+                country = US
+                locale = en_US
 
-    MPC is still useful
-        sudo apt install mpc    
+        Muse is a very nice client: 
+            https://pypi.org/project/Mopidy-Muse/
+            
+            `sudo python3 -m pip install Mopidy-Muse`
+            Add to mopidy.conf:
+                [muse]
+                enabled = true
+                # the following are optional values
+                mopidy_host = localhost
+                mopidy_port = 6680
+                mopidy_ssl = false
+                snapcast_host = localhost
+                snapcast_port = 1780
+                snapcast_ssl = false
+                
+        Default playlist.  
+            https://pypi.org/project/Mopidy-DefaultPlaylist/
 
-ToDo:   
-    Implement default volume
-    Timeout for volume screen - return to channel?
-    Shorter static sound - no hard stop when the sound is playing?
+            `python3 -m pip install Mopidy-DefaultPlaylist`
+            Add to mopidy.conf:
+                [defaultplaylist]
+                enabled = true
+                defaultplaylist_name = Top Hits
+                autoplay = true
+                shuffle = true
+
+    New resources?
+        https://pypi.org/project/mopidy-pidi/
+        `python3 -m pip install Mopidy-PiDi`
+
+        https://pypi.org/project/mopidy-raspberry-gpio/
+        `python3 -m pip install Mopidy-Raspberry-GPIO`
+    
+        https://pypi.org/project/pidi-display-pil/
+        `python3 -m pip install pidi-display-pil`
+
+
 
 Requirements for this code:
 
@@ -100,10 +125,10 @@ Requirements for this code:
             dtparam=i2c_arm=on
             dtparam=i2c_arm_baudrate=1000000
 
-
-MPC Info:
-    https://www.mankier.com/1/mpc
-
+ToDo:   
+    Implement default volume
+    Timeout for volume screen - return to channel?
+    Shorter static sound - no hard stop when the sound is playing?
 
 Mopidy Config Files:
 
@@ -163,6 +188,18 @@ Mopidy Config Files:
 
 
 OLD:
+
+    MPC is still useful
+    `sudo apt install mpc`
+    MPC Info:
+    https://www.mankier.com/1/mpc
+
+    PiFi Radio https://github.com/rccavalcanti/pifi-radio
+        Pros: Super clean, simple web UI.
+        Cons: No song info, no graphics for stations
+
+        Uses JSON for station list.  I can work with this.
+    
 
     modify the /etc/mdp.conf file: 
         uncomment this line:

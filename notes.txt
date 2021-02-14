@@ -1,5 +1,15 @@
 This is notes.txt
 
+Mopidy logs:
+    sudo journalctl -u mopidy
+
+Mopidy config:
+    sudo mopidyctl config
+
+Mopidy status:
+    sudo systemctl status mopidy
+
+
 MPC is still useful
     `sudo apt install mpc`
     MPC Info:

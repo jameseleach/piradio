@@ -102,6 +102,8 @@ These new modules might be required... The next bit of time will tell!
 * [Mopidy-Pidi](https://pypi.org/project/mopidy-pidi/)
 * [Mopidy-Raspberry-GPIO](https://pypi.org/project/mopidy-raspberry-gpio/)
 * [PiDi-Display-PIL](https://pypi.org/project/pidi-display-pil/)
+* [Mopidy-RotaryEncoder](https://pypi.org/project/Mopidy-RotaryEncoder/)
+    `sudo adduser mopidy gpio`
 
 Install them with `python3 -m pip install --upgrade Mopidy-PiDi Mopidy-Raspberry-GPIO pidi-display-pil`
 
@@ -141,4 +143,7 @@ media_dir = $XDG_DATA_DIR/media
 [alsamixer]
 card = 0
 control = Headphone
+
+[somafm]
+dj_as_artist = true
 ```

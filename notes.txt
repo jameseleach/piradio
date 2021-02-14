@@ -1,9 +1,9 @@
 This is notes.txt
 
 MPC is still useful
-`sudo apt install mpc`
-MPC Info:
-https://www.mankier.com/1/mpc
+    `sudo apt install mpc`
+    MPC Info:
+    https://www.mankier.com/1/mpc
 
 PiFi Radio https://github.com/rccavalcanti/pifi-radio
     Pros: Super clean, simple web UI.

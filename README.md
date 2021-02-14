@@ -111,29 +111,9 @@ Install them with `python3 -m pip install --upgrade Mopidy-PiDi Mopidy-Raspberry
 - Timeout for volume screen - return to channel?
 - Shorter static sound - no hard stop when the sound is playing?
 
-# Mopidy Config Files:
+# Mopidy Config File:
 
 ```
-pi@jukebox:~ $ sudo cat /usr/share/mopidy/conf.d/mopidy.conf
-# These are default configurations modified by the mopidy Debian package.
-#
-# This file should not be modified. Everything can be overriden by
-# `/etc/mopidy/mopidy.conf`.
-
-[core]
-cache_dir = /var/cache/mopidy
-config_dir = /etc/mopidy
-data_dir = /var/lib/mopidy
-
-[logging]
-format = %(levelname)-8s [%(threadName)s] %(name)s %(message)s
-color = false
-
-pi@jukebox:~ $ sudo cat /usr/share/mopidy/conf.d/mopidy-local.conf
-[local]
-media_dir = /var/lib/mopidy/media
-pi@jukebox:~ $ 
-
 pi@jukebox:~ $ sudo cat /etc/mopidy/mopidy.conf
 # For information about configuration values that can be set in this file see:
 #
@@ -142,29 +122,23 @@ pi@jukebox:~ $ sudo cat /etc/mopidy/mopidy.conf
 # Run `sudo mopidyctl config` to see the current effective config, based on
 # both defaults and this configuration file.
 
-[mpd]
-enabled = true
+[audio]
+mixer = alsamixer
+
+[iris]
+country = US
+locale = en_US
+
+[http]
 hostname = ::
 
-[audio]
-# mixer = software
-# output = alsasink
-mixer = alsamixer
+[mpd]
+hostname = ::
+
+[local]
+media_dir = $XDG_DATA_DIR/media
 
 [alsamixer]
 card = 0
-control = "Headphone"
-min_volume = 0
-max_volume = 100
-volume_scale = cubic
-
-[http]
-enabled = true
-hostname = ::
-port = 6680
-zeroconf = Mopidy HTTP server on $hostname
-allowed_origins =
-csrf_protection = true
-default_app = mopidy
-pi@jukebox:~ $ 
+control = Headphone
 ```

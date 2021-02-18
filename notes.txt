@@ -1,13 +1,25 @@
 This is notes.txt
 
+Restart Mopidy:
+    sudo systemctl restart mopidy
+
 Mopidy logs:
     sudo journalctl -u mopidy
+    sudo journalctl -u mopidy -n 50 --since "5 minutes ago"
+    Reference:  https://www.loggly.com/ultimate-guide/using-journalctl/
 
 Mopidy config:
     sudo mopidyctl config
 
 Mopidy status:
     sudo systemctl status mopidy
+
+
+# Changes for the Pimoroni Pirate Audio:
+    sudo python3 -m pip install --upgrade Mopidy-PiDi PiDi-Display-ST7789 Mopidy-Raspberry-GPIO RPi.GPIO numpy
+
+    sudo adduser mopidy gpio
+
 
 
 MPC is still useful
@@ -48,3 +60,10 @@ modify the /etc/mdp.conf file:
             mixer_control   "Headphone"
             mixer_index     "0"
     }
+
+
+Building wheels for collected packages: Mopidy-RotaryEncoder
+  Running setup.py bdist_wheel for Mopidy-RotaryEncoder ... done
+  Stored in directory: /root/.cache/pip/wheels/7f/33/99/146833ee594e8ca7539030466d83c14fa53f8389f759141e5b
+
+  
